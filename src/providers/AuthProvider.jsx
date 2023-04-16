@@ -9,11 +9,11 @@ function AuthProvider(props) {
     const { getItem } = useLocalStorage();
 
     useEffect(() => {
-        const data = getItem('user');
+        const data = JSON.parse(getItem('user'));
         
         if (data) {
             setUser(prev => JSON.parse(data));
-            setIsAuth(prev => true);
+            setIsAuth(prev => !prev);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

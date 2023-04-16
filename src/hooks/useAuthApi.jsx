@@ -56,7 +56,7 @@ function useLoginApi() {
             }
         }).then((response) => {
             setSuccess(prev => response.data.message);
-            setItem('user', null);
+            setItem('user', {});
             setUser(prev => null);
             setIsAuth(prev => false);
             
@@ -65,6 +65,7 @@ function useLoginApi() {
         })
 
         setTimeout(() => {
+            setErrors(prev => null);
             setSuccess(prev => null);
         }, 5000);
     }
