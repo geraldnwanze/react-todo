@@ -56,7 +56,7 @@ function useLoginApi() {
             }
         }).then((response) => {
             setSuccess(prev => response.data.message);
-            setItem('user', {});
+            setItem('user', null);
             setUser(prev => null);
             setIsAuth(prev => false);
             
