@@ -1,27 +1,49 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import MainLayout from "./components/layouts/mainlayout";
-import Login from "./components/pages/auth/Login";
-import RegisterEmail from "./components/pages/auth/RegisterEmail";
+import LoginPage from "./components/pages/auth/LoginPage";
+import RegisterEmailPage from "./components/pages/auth/RegisterEmailPage";
+import TaskPage from "./components/pages/tasks/TaskPage";
+import TaskSearchPage from "./components/pages/tasks/TaskSearchPage";
+import Protected from "./components/pages/Protected";
+import IsAuth from "./components/pages/IsAuth";
 
-const MyRoutes = createBrowserRouter([
-    {
-        path: "/",
-        element: <Navigate to="/auth/login" />
-    },
-    {
-        path: "/auth",
-        element: <MainLayout />,
-        children: [
-            {
-                path: "/auth/login",
-                element: <Login />
-            },
-            {
-                path: "/auth/register-email",
-                element: <RegisterEmail />
-            }
-        ]
-    }
-]);
+function useMyRouter() {
+    
+    const MyRoutes = createBrowserRouter([
+        {
+            path: "/",
+            element: <Navigate to="/auth/login" />
+        },
+        {
+            path: "/auth",
+            element: <IsAuth />,
+            children: [
+                {
+                    path: "/auth/login",
+                    element: <LoginPage />
+                },
+                {
+                    path: "/auth/register-email",
+                    element: <RegisterEmailPage />,
+                }
+            ]
+        },
+        {
+            path: "/tasks",
+            element: <Protected />,
+            children: [
+                {
+                    path: "",
+                    element: <TaskPage />
+                },
+                {
+                    path: "search",
+                    element: <TaskSearchPage />
+                }
+            ]
+        }
+    ]);
 
-export default MyRoutes;
+    return { MyRoutes };
+}
+
+export default useMyRouter;

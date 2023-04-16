@@ -1,19 +1,19 @@
-import { Outlet } from "react-router-dom";
-import HeaderLayout from "./header";
-import FooterLayout from "./footer";
 import { useContext } from "react";
-import BaseContext from "../../contexts/base";
-import AuthContext from "../../contexts/auth";
+import { Outlet } from "react-router-dom";
+import HeaderLayout from "./HeaderLayout";
+import FooterLayout from "./FooterLayout";
+import BaseContext from "../../contexts/BaseContext";
+import Alert from "../alerts/Alert";
 
 function MainLayout() {
     const { links, app } = useContext(BaseContext);
-    const { logout } = useContext(AuthContext);
 
     document.title = app.name;
 
     return (
         <>
-        <HeaderLayout links={links} app={app} logout={logout} />
+        <Alert />
+        <HeaderLayout links={links} app={app} />
             <Outlet />
         <FooterLayout links={links} app={app} />
         </>
