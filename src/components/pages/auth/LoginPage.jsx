@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import useAuthApi from  "../../../hooks/useAuthApi";
 
 function LoginPage() {
     const [loginForm, setLoginForm] = useState({email: "", password: "", "g-recaptcha-response": ""});
-    const captchaRef = useRef(null);
     const [loading, setLoading] = useState(false);
     const { login } = useAuthApi();
     const navigate = useNavigate();
@@ -18,14 +17,17 @@ function LoginPage() {
         }))
     }
 
-    function handleLogin(e) {
-        e.preventDefault();
-        setLoading(prev => !prev);
-        const captcha = captchaRef.current.getValue(); 
+    function handleCaptcha(e) {
         setLoginForm({
             ...loginForm,
-            'g-recaptcha-response': captcha
+            'g-recaptcha-response': e
         })
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        
+        setLoading(prev => !prev);
         
         const status = login(loginForm);
         
@@ -33,7 +35,6 @@ function LoginPage() {
             
             setLoading(prev => !prev);
             status.then((done) => {
-                captchaRef.current.reset();
                 if (done) {
                     navigate('/tasks')
                 }
@@ -57,7 +58,7 @@ function LoginPage() {
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
                 </div>
                 <div className="relative z-0 w-10/12 lg:w-8/12 mx-auto mb-6 group">
-                    <ReCAPTCHA sitekey={process.env.REACT_APP_GOOGLE_RECAPTCHA_SITE_KEY} ref={captchaRef} />
+                    <ReCAPTCHA sitekey={process.env.REACT_APP_GOOGLE_RECAPTCHA_SITE_KEY} onChange={(e) => handleCaptcha(e)} />
                 </div>
                 <div className="text-center">
                     { 
