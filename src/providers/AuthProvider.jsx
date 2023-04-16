@@ -15,7 +15,7 @@ function AuthProvider(props) {
             setUser(prev => JSON.parse(data));
             setIsAuth(prev => true);
         }
-    }, [user]);
+    }, [getItem]);
     
     return (
         <AuthContext.Provider value={{user, setUser, isAuth, setIsAuth}}>
