@@ -15,6 +15,8 @@ function AuthProvider(props) {
             setUser(prev => JSON.parse(data));
             setIsAuth(prev => true);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     return (
