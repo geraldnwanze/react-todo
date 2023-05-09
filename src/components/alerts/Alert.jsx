@@ -9,7 +9,13 @@ function Alert()
     const {errors, success} = useContext(BaseContext);
     
     if (errors) {
-        return <ErrorAlert errors={errors} />
+        let errorArray;
+        if (typeof(errors) === "string") {
+            errorArray = [errors];
+        } else {
+            errorArray = errors;
+        }
+        return <ErrorAlert errors={errorArray} />
     }
 
     if (success) {

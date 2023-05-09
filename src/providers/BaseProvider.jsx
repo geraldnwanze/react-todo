@@ -11,10 +11,17 @@ const links = {
 }
 
 const apis = {
-    base_url: process.env.REACT_APP_API_BASE_URL,
-    logout: "/logout",
     auth: {
-        login: "/auth/login"
+        login: "/auth/login",
+        logout: "logout"
+    },
+    tasks: {
+        index: "/tasks",
+        search: "/tasks/search",
+        store: "/tasks/store",
+        update: "/tasks/update",
+        complete: "/tasks/complete",
+        destroy: "/tasks/delete"
     }
 }
 
@@ -25,7 +32,7 @@ const app = {
 function BaseProvider(props) {
     const [errors, setErrors] = useState(null);
     const [success, setSuccess] = useState(null);
-    const [requestResponse, setRequestResponse] = useState(null);
+    const [pagination, setPagination] = useState({});
     
     return (
         <BaseContext.Provider value={
@@ -35,7 +42,7 @@ function BaseProvider(props) {
                 app, 
                 errors, setErrors, 
                 success, setSuccess, 
-                requestResponse, setRequestResponse
+                pagination, setPagination
             }
         }>
             {props.children}

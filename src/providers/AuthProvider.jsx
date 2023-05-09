@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 function AuthProvider(props) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
     const [isAuth, setIsAuth] = useState(false);
     const { getItem } = useLocalStorage();
 
     useEffect(() => {
-        const data = JSON.parse(getItem('user'));
-        
+        const data = getItem('user');
+
         if (data) {
             setUser(prev => JSON.parse(data));
             setIsAuth(prev => !prev);

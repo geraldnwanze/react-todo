@@ -1,10 +1,12 @@
 import { createContext } from "react";
 
 const BaseContext = createContext({
-    apis: "",
+    links: {}, 
+    apis: {}, 
+    app: {}, 
     errors: null, setErrors: () => {},
     success: null, setSuccess: () => {},
-    loading: false, setLoading: () => {}
+    pagination: null, setPagination: () => {}
 });
 
 export default BaseContext;
